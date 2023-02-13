@@ -6,10 +6,11 @@ List::List() {
 }
 
 List::~List() {
-  while (head != NULL)
-    {
-        Node* tmpNode = head;
-        delete head;
-        head = tmpNode;
+    while(head->next != NULL){
+        Node* X = head;
+        //cout << X->string << endl;
+        head = head->next;
+        delete X;
     }
+    delete head;
 }

@@ -24,21 +24,18 @@ struct List {
 
 // void push_front definition
 void List::push_front(const std::string &s){
-  Node* newNode = new Node();
+  Node* newNode = new Node;
   newNode->string = s;
+  //newNode->number = stoi(newNode->string);
   
   if(head == NULL){
     head = newNode;
-    return;
   }
-  
-  Node* temp = head;
-  while (temp->next != NULL) {
-  
-    temp = temp->next;
+  else{
+      newNode->next = head;
+      head = newNode;
   }
- 
-    temp->next = newNode;
+  size++;
 }
 
 // Functions -------------------------------------------------------------------
