@@ -26,7 +26,16 @@ struct List {
 void List::push_front(const std::string &s){
   Node* newNode = new Node;
   newNode->string = s;
-  //newNode->number = stoi(newNode->string);
+  //newNode->number = std::stoi(s);
+  
+    try
+    {
+        newNode->number = std::stoi(s);
+    }
+    catch(std::invalid_argument const& ex)
+    {
+        newNode->number = 0;
+    }
   
   if(head == NULL){
     head = newNode;
