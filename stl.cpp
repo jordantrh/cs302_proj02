@@ -7,11 +7,13 @@
 #include <vector>
 #include <iostream>
 
+using namespace std;
+
 void stl_sort(List &l, bool numeric) {
   vector<Node *> nodeVect;
     
   Node* tempN = new Node();
-  tempN = temp.head;
+  tempN = l.head;
   while(tempN->next != NULL){
       Node* nextN = tempN->next;
       nodeVect.push_back(tempN);
@@ -37,12 +39,12 @@ void stl_sort(List &l, bool numeric) {
       cout << "+" << nodeVect[i]->string << endl;
   }
   
-  temp.head = nodeVect[0];
-  temp.head->next = NULL;
+  l.head = nodeVect[0];
+  l.head->next = NULL;
   for(int i = 1; i < nodeVect.size(); i++){
       tempN = nodeVect[i];
-      tempN->next = temp.head;
-      temp.head = tempN;
+      tempN->next = l.head;
+      l.head = tempN;
   }
   //cout << nodeVect.size() << endl;
   

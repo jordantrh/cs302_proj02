@@ -4,6 +4,9 @@
 #define VOLSORT_H
 
 #include <string>
+#include <iostream>
+
+using namespace std;
 
 struct Node {
     std::string string;
@@ -61,11 +64,7 @@ bool node_string_compare(const Node *a, const Node *b){
 
 // implement in this file (volsort.h) to make it easier for TAs to grade
 void dump_node(Node *n){
-  Node* temp = head;
-  while (temp->next != NULL) {
-    cout << "string: " << temp->string "   number: " << temp->number << endl;
-    temp = temp->next;
-  }
+    cout << "string: " << n->string << "   number: " << n->number << endl;
 }			
 
 void stl_sort(List &l, bool numeric);	// define in stl.cpp - sort using std::sort
