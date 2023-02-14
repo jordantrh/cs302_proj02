@@ -24,26 +24,18 @@ Node *msort(Node *head, bool numeric) {
     
     Node *left_head, *right_head;
     
-    // end case: if there are only two to compare
-    if (head->next->next == NULL) {
-        node_number_compare(head, head->next);
+    if (head->next == NULL) {
+        return head;
     }
-    else {
-        // halves list
-        
-        
-        split(head, slow_ptr, fast_ptr);
 
-        // left side
-        left_head = msort(head, numeric);
+    split(head, left_head, right_head);
 
-        // right side
-        right_head = msort(slow_ptr, numeric);
-    }
+    left_head = msort(left_head, numeric);
+
+    right_head = msort(right_head, numeric);
 
     return merge(left_head, right_head, numeric);
-
-
+    
 }
 
 void split(Node *head, Node *&left, Node *&right) {
@@ -53,7 +45,10 @@ void split(Node *head, Node *&left, Node *&right) {
             fast_ptr = fast_ptr->next->next;  // moves two nodes ahead at a time 
     }
 
-    left->next = NULL;
+    left = head;
+    right = slow_ptr->next;
+    slow_ptr->next = NULL;
+
 }
 
 Node *merge(Node *left, Node *right, bool numeric) {
