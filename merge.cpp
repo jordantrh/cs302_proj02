@@ -3,7 +3,10 @@
 #include "volsort.h"
 
 #include <iostream>
+//#include "list.cpp"
 
+// using namespace std;
+// int main() {
 // Prototypes
 
 Node *msort(Node *head, bool numeric);
@@ -15,7 +18,7 @@ Node *merge(Node *left, Node *right, bool numeric);
 void merge_sort(List &l, bool numeric) {
 
     //recursively split up list and remerge based on order
-    Node *thehead = msort(l.head, numeric);
+    l.head = msort(l.head, numeric);
     // when recursion is finished, a sorted list should be completed
 
 }
@@ -39,12 +42,22 @@ Node *msort(Node *head, bool numeric) {
 }
 
 void split(Node *head, Node *&left, Node *&right) {
-    Node *slow_ptr = head, *fast_ptr = head; 
-    while(!slow_ptr && !fast_ptr && fast_ptr->next != NULL) {   // https://www.quora.com/What-is-a-slow-pointer-and-a-fast-pointer-in-a-linked-list 
-            slow_ptr = slow_ptr->next;  // moves one node ahead at a time 
-            fast_ptr = fast_ptr->next->next;  // moves two nodes ahead at a time 
+    // Node *slow_ptr = head, *fast_ptr = head;
+    // while(!slow_ptr && !fast_ptr && fast_ptr->next != NULL) {   // https://www.quora.com/What-is-a-slow-pointer-and-a-fast-pointer-in-a-linked-list 
+    //         slow_ptr = slow_ptr->next;  // moves one node ahead at a time 
+    //         fast_ptr = fast_ptr->next->next;  // moves two nodes ahead at a time 
+    // }
+    
+    // I spoke with Maria (classmate) about optimizing the tortoise and hare: https://www.quora.com/What-is-a-slow-pointer-and-a-fast-pointer-in-a-linked-list 
+    Node* slow_ptr = head, *fast_ptr = head->next;
+    while (fast_ptr != NULL) {
+        fast_ptr = fast_ptr->next;
+        if (fast_ptr->next != NULL) {
+            slow_ptr = slow_ptr->next;
+            fast_ptr = fast_ptr->next;
+        }
     }
-
+    
     left = head;
     right = slow_ptr->next;
     slow_ptr->next = NULL;
@@ -93,16 +106,31 @@ Node *merge(Node *left, Node *right, bool numeric) {
             right_nulls++;
         }
 
-        // if left is less than right, left is inserted
-        if (node_number_compare(right, left)) {
-            temp->next = left;
-            left = left->next;
-        }
+        if (numeric) {
+            // if left is less than right, left is inserted
+            if (node_number_compare(left, right)) {
+                temp->next = left;
+                left = left->next;
+            }
 
-        // if right is less than left, right is inserted
+            // if right is less than left, right is inserted
+            else {
+                temp->next = right;
+                right = right->next;
+            }
+        }
         else {
-            temp->next = right;
-            right = right->next;
+            // if left is less than right, left is inserted
+            if (node_string_compare(left, right)) {
+                temp->next = left;
+                left = left->next;
+            }
+
+            // if right is less than left, right is inserted
+            else {
+                temp->next = right;
+                right = right->next;
+            }
         }
         
         temp = temp->next;
