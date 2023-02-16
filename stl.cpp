@@ -6,28 +6,58 @@
 #include <string>
 #include <vector>
 #include <iostream>
+//#include "list.cpp"
 
-using namespace std;
-
+// using namespace std;
+// int main() {
 void stl_sort(List &l, bool numeric) {
-  vector<Node *> nodeVect;
+
+    // bool numeric = true;
+    // List l; 
+    // l.push_front("2");
+    // l.push_front("22");
+    // l.push_front("3");
+    // l.push_front("45");
+    // l.push_front("4");
+
+    vector<Node *> nodeVect;
+   
+    Node* tempN = l.head;
+  //tempN = temp.head;
+    while(tempN != NULL){
+        //Node* nextN = tempN->next;
+        nodeVect.push_back(tempN);
+        tempN = tempN->next;
+    }
+ // nodeVect.push_back(tempN);
+//     for(unsigned int i = 0; i < nodeVect.size(); i++){
+//       cout << nodeVect[i]->string << endl;
+//   }
+
+    if(numeric){
+        std::sort(nodeVect.begin(), nodeVect.end(), node_number_compare);
+    }
+    else{
+        std::sort(nodeVect.begin(), nodeVect.end(), node_string_compare);
+    }
+
+    l.head = nodeVect[0];
+    tempN = l.head;
+    for(unsigned int i = 1; i < nodeVect.size(); i++){
+        l.head->next = nodeVect[i];
+        l.head = l.head->next;
+    }
+    l.head->next = NULL;
+    l.head = tempN;
     
-  Node* tempN = new Node();
-  tempN = l.head;
-  while(tempN->next != NULL){
-      Node* nextN = tempN->next;
-      nodeVect.push_back(tempN);
-      tempN = nextN;
-  }
-  nodeVect.push_back(tempN);
-  
-  for(int i = 0; i < nodeVect.size(); i++){
-      cout << "-" << nodeVect[i]->string << endl;
-  }
+    // while(tempN != NULL) {
+    //     cout << tempN->number << ' ';
+    //     tempN = tempN->next;
+    // }
   
   //std::sort(nodeVect.begin(), nodeVect.end(), node_number_compare);
   
-  
+  /*
   if(numeric){
       std::sort(nodeVect.begin(), nodeVect.end(), node_number_compare);
   }
@@ -35,19 +65,18 @@ void stl_sort(List &l, bool numeric) {
       std::sort(nodeVect.begin(), nodeVect.end(), node_string_compare);
   }
   
-  for(int i = 0; i < nodeVect.size(); i++){
+  for(unsigned int i = 0; i < nodeVect.size(); i++){
       cout << "+" << nodeVect[i]->string << endl;
   }
   
-  l.head = nodeVect[0];
-  l.head->next = NULL;
+  temp.head = nodeVect[0];
+  temp.head->next = NULL;
   for(int i = 1; i < nodeVect.size(); i++){
       tempN = nodeVect[i];
-      tempN->next = l.head;
-      l.head = tempN;
-  }
+      tempN->next = temp.head;
+      temp.head = tempN;
+  }*/
   //cout << nodeVect.size() << endl;
   
   //delete tempN;
 }
-

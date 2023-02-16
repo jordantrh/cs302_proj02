@@ -25,47 +25,9 @@ struct List {
   void push_front(const std::string &s);
 };
 
-// void push_front definition
-void List::push_front(const std::string &s){
-  Node* newNode = new Node;
-  newNode->string = s;
-  //newNode->number = std::stoi(s);
-  
-    try
-    {
-        newNode->number = std::stoi(s);
-    }
-    catch(std::invalid_argument const& ex)
-    {
-        newNode->number = 0;
-    }
-  
-  if(head == NULL){
-    head = newNode;
-  }
-  else{
-      newNode->next = head;
-      head = newNode;
-  }
-  size++;
-}
-
-// Functions -------------------------------------------------------------------
-
-//implement in this file (volsort.h), used by quick, merge and stl
-bool node_number_compare(const Node *a, const Node *b){
-  return a->number > b->number;
-}
-
-//implement in this file (volsort.h), used by quick, merge and stl
-bool node_string_compare(const Node *a, const Node *b){
-  return a->string > b->string; 
-}
-
-// implement in this file (volsort.h) to make it easier for TAs to grade
-void dump_node(Node *n){
-    cout << "string: " << n->string << "   number: " << n->number << endl;
-}			
+bool node_number_compare(const Node *a, const Node *b);
+bool node_string_compare(const Node *a, const Node *b);
+void dump_node(Node *n);
 
 void stl_sort(List &l, bool numeric);	// define in stl.cpp - sort using std::sort
 void qsort_sort(List &l, bool numeric);	// define in qsort.cpp - sort using qsort from cstdlib
