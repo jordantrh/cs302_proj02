@@ -28,3 +28,7 @@
 | Quick  | 1E5  |	0m0.320s      |
 | Quick  | 1E6  |	0m4.588s      |
 | Quick  | 1E7  |	2m21.858s     |
+
+1) The sorting algorithms from fastest to slowest are qsort, mergesort, stl, and quicksort. QSort and STL programming-wise require having to place the linked list into a container and uses a function from a library, meanwhile Quicksort and Mergesort are much more involved and do not reqiure a vector to do. 
+2) Theoretical time complexity does not actually have a correction on how long the code actually takes the time to run, as time complexity only focuses on the duration of the algorithm than the actual code itself.
+3) 
