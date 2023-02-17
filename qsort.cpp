@@ -7,6 +7,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <cstring>
+#include <string>
 
 using namespace std;
 
@@ -19,7 +20,7 @@ int node_number_compare(const void * a, const void * b){
 
 int node_string_compare(const void * a, const void * b)
 {
-    return (*(const Node **)a)->string > (*(const Node **)b)->string;
+    return ((*(const Node **)a)->string).compare((*(const Node **)b)->string);
 }
 
 void qsort_sort(List &l, bool numeric) {
@@ -27,8 +28,7 @@ void qsort_sort(List &l, bool numeric) {
   
   vector<Node *> nodeVect;
   
-  Node* tempN = new Node();
-  tempN = l.head;
+  Node* tempN = l.head;
   while(tempN->next != NULL){
       Node* nextN = tempN->next;
       nodeVect.push_back(tempN);
@@ -44,11 +44,13 @@ void qsort_sort(List &l, bool numeric) {
   }
   
   l.head = nodeVect[0];
-  l.head->next = NULL;
-  for(int i = 1; i < nodeVect.size(); i++){
-      tempN = nodeVect[i];
-      tempN->next = l.head;
-      l.head = tempN;
+  tempN = l.head;
+  for (unsigned int i = 1; i < nodeVect.size(); i++) {
+    l.head->next = nodeVect[i];
+    l.head = l.head->next;
   }
-}
 
+  l.head->next = NULL;
+  l.head = tempN;
+  
+}

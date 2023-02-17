@@ -63,11 +63,12 @@ Node *merge(Node *left, Node *right, bool numeric) {
     
     Node *temp;
     Node *head;
-    bool condition;
-  
-    condition = (numeric) ? node_number_compare(left, right) : node_string_compare(left, right);
+    bool value_is_numeric;
+    
+    // This style of testing for numeric was recommended by Maria Hernandez
+    value_is_numeric = (numeric) ? node_number_compare(left, right) : node_string_compare(left, right);
     // sets head first
-    if (condition) {
+    if (value_is_numeric) {
         head = left;
         left = left->next;
     }
@@ -96,8 +97,8 @@ Node *merge(Node *left, Node *right, bool numeric) {
             temp = temp->next;
             continue;
         }
-        condition = (numeric) ? node_number_compare(left, right) : node_string_compare(left, right);
-        if (condition) {
+        value_is_numeric = (numeric) ? node_number_compare(left, right) : node_string_compare(left, right);
+        if (value_is_numeric) {
                 temp->next = left;
                 left = left->next;
         }

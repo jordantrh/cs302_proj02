@@ -85,6 +85,7 @@ Node *qsort(Node *head, bool numeric) {
 }
 
 void partition(Node *head, Node *pivot, Node *&left, Node *&right, bool numeric) {
+    bool value_is_numeric;
 
     Node *Tail_L, *Tail_R, *iterator;
     //divides the list into two smaller sublists. everything smaller than or equal to the pivot goes to the left. 
@@ -97,25 +98,31 @@ void partition(Node *head, Node *pivot, Node *&left, Node *&right, bool numeric)
     while(iterator != NULL){
        //
        //cout << "this is compare in partition " << i << ": " << iterator->number << endl;
-        if(node_number_compare(pivot, iterator)){
+       
+       value_is_numeric = (numeric) ? node_number_compare(pivot, iterator) : node_string_compare(pivot, iterator);
+
+        if(value_is_numeric){
             if(right == NULL){
                 //cout << "Compare greater than pivot " << i << endl << endl;
                 right = iterator;
                 Tail_R = iterator; 
                 //right = Tail_R;
-            }else{
+            }
+            else{
                 //cout << "Compare greater than pivot " << i << endl;
                 Tail_R->next = iterator;
                 Tail_R = Tail_R->next;
                 //cout << "Tail_R is :" << Tail_R->number << endl << endl;
             }
-        }else{
-          if(left == NULL){
-                //cout << "Compare less than pivot " << i << endl << endl;
-                left = iterator;
-                Tail_L = iterator; 
-                //left = Tail_L;
-            }else{
+        }
+        else{
+            if(left == NULL){
+                    //cout << "Compare less than pivot " << i << endl << endl;
+                    left = iterator;
+                    Tail_L = iterator; 
+                    //left = Tail_L;
+            }
+            else{
                 //cout << "Compare less than pivot " << i << endl;
                 Tail_L->next = iterator;
                 Tail_L = Tail_L->next;
