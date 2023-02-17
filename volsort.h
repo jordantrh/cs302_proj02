@@ -27,10 +27,12 @@ struct List {
 
 // void push_front definition
 void List::push_front(const std::string &s){
+    //Creates node
   Node* newNode = new Node;
   newNode->string = s;
-  //newNode->number = std::stoi(s);
   
+    //If node is numeric, convert it to integer if possible
+    //if not, set to 0 instead
     try
     {
         newNode->number = std::stoi(s);
@@ -40,6 +42,8 @@ void List::push_front(const std::string &s){
         newNode->number = 0;
     }
   
+    //Set node to head if head in list is set to empty
+    //otherwise, set the new node as the head
   if(head == NULL){
     head = newNode;
   }
@@ -52,15 +56,9 @@ void List::push_front(const std::string &s){
 
 // Functions -------------------------------------------------------------------
 
-//implement in this file (volsort.h), used by quick, merge and stl
-bool node_number_compare(const Node *a, const Node *b){
-  return a->number > b->number;
-}
-
-//implement in this file (volsort.h), used by quick, merge and stl
-bool node_string_compare(const Node *a, const Node *b){
-  return a->string > b->string; 
-}
+bool node_number_compare(const Node *a, const Node *b);
+bool node_string_compare(const Node *a, const Node *b);
+//Both functions mention above implemented in list.cpp to avoid compile-time issues
 
 // implement in this file (volsort.h) to make it easier for TAs to grade
 void dump_node(Node *n){
