@@ -1,4 +1,5 @@
 # cs302_proj02
+```
 | Mode   | Size | Elapsed Time  |
 | STL    | 1E1  | 0m0.001s      |
 | STL    | 1E2  |	0m0.001s      |
@@ -28,7 +29,9 @@
 | Quick  | 1E5  |	0m0.320s      |
 | Quick  | 1E6  |	0m4.588s      |
 | Quick  | 1E7  |	2m21.858s     |
+```
 
 1) The sorting algorithms from fastest to slowest are qsort, mergesort, stl, and quicksort. QSort and STL programming-wise require having to place the linked list into a container and uses a function from a library, meanwhile Quicksort and Mergesort are much more involved and do not reqiure a vector to do. 
 2) Theoretical time complexity does not actually have a correction on how long the code actually takes the time to run, as time complexity only focuses on the duration of the algorithm than the actual code itself.
-3) 
+3) In our opinion mergesort is the best as it doesn;t require having to place nodes in a container and is supposed to be faster according to theoretical time complexity, however, it is not the fastest compared to other sorting methods in terms of the time it takes for the code to actually run.
+4) 
