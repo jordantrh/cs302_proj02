@@ -1,20 +1,38 @@
 import subprocess
+import sys
 
-print("Quick - 10")
-subprocess.run(["time ./volsort -m quick -n < in_10.txt > out.txt"], shell=True)
-print("Quick - 100")
+# STL
+subprocess.run(["time ./volsort -m stl -n < in_10.txt"], shell=True)
+subprocess.run(["time ./volsort -m stl -n < in_100.txt"], shell=True)
+subprocess.run(["time ./volsort -m stl -n < in_1grand.txt"], shell=True)
+subprocess.run(["time ./volsort -m stl -n < in_10grand.txt"], shell=True)
+subprocess.run(["time ./volsort -m stl -n < in_100grand.txt"], shell=True)
+subprocess.run(["time ./volsort -m stl -n < in_1mil.txt"], shell=True)
+subprocess.run(["time ./volsort -m stl -n < in_10mil.txt"], shell=True)
+
+# QSORT
+subprocess.run(["time ./volsort -m qsort -n < in_10.txt"], shell=True)
+subprocess.run(["time ./volsort -m qsort -n < in_100.txt"], shell=True)
+subprocess.run(["time ./volsort -m qsort -n < in_1grand.txt"], shell=True)
+subprocess.run(["time ./volsort -m qsort -n < in_10grand.txt"], shell=True)
+subprocess.run(["time ./volsort -m qsort -n < in_100grand.txt"], shell=True)
+subprocess.run(["time ./volsort -m qsort -n < in_1mil.txt"], shell=True)
+subprocess.run(["time ./volsort -m qsort -n < in_10mil.txt"], shell=True)
+
+# MERGE
+subprocess.run(["time ./volsort -m merge -n < in_10.txt"], shell=True)
+subprocess.run(["time ./volsort -m merge -n < in_100.txt"], shell=True)
+subprocess.run(["time ./volsort -m merge -n < in_1grand.txt"], shell=True)
+subprocess.run(["time ./volsort -m merge -n < in_10grand.txt"], shell=True)
+subprocess.run(["time ./volsort -m merge -n < in_100grand.txt"], shell=True)
+subprocess.run(["time ./volsort -m merge -n < in_1mil.txt"], shell=True)
+subprocess.run(["time ./volsort -m merge -n < in_10mil.txt"], shell=True)
+
+# QUICK
+subprocess.run(["time ./volsort -m quick -n < in_10.txt"], shell=True)
 subprocess.run(["time ./volsort -m quick -n < in_100.txt"], shell=True)
-print("Quick - 1grand")
 subprocess.run(["time ./volsort -m quick -n < in_1grand.txt"], shell=True)
-print("Quick - 10grand")
 subprocess.run(["time ./volsort -m quick -n < in_10grand.txt"], shell=True)
-print("Quick - 100grand")
 subprocess.run(["time ./volsort -m quick -n < in_100grand.txt"], shell=True)
-print("Quick - 1mil")
 subprocess.run(["time ./volsort -m quick -n < in_1mil.txt"], shell=True)
-print("Quick - 10mil")
 subprocess.run(["time ./volsort -m quick -n < in_10mil.txt"], shell=True)
-
-
-
-# !time ./volsort -m merge -n < in_1mil.txt
