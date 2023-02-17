@@ -3,29 +3,28 @@
 #include "volsort.h"
 
 #include <iostream>
-//#include "list.cpp"
 
-// using namespace std;
-// int main() {
+using namespace std;
+
 // Prototypes
 
-Node *msort(Node *head, bool numeric);
+Node* msort(Node *head, bool numeric);
 void  split(Node *head, Node *&left, Node *&right);
 Node *merge(Node *left, Node *right, bool numeric);
 
 // Implementations
 
 void merge_sort(List &l, bool numeric) {
-
     //recursively split up list and remerge based on order
-    l.head = msort(l.head, numeric);
+     l.head = msort(l.head, numeric);
     // when recursion is finished, a sorted list should be completed
 
 }
 
-Node *msort(Node *head, bool numeric) {
+Node* msort(Node *head, bool numeric) {
     
-    Node *left_head, *right_head;
+    Node *left_head;
+    Node *right_head;
     
     if (head->next == NULL) {
         return head;
@@ -42,17 +41,13 @@ Node *msort(Node *head, bool numeric) {
 }
 
 void split(Node *head, Node *&left, Node *&right) {
-    // Node *slow_ptr = head, *fast_ptr = head;
-    // while(!slow_ptr && !fast_ptr && fast_ptr->next != NULL) {   // https://www.quora.com/What-is-a-slow-pointer-and-a-fast-pointer-in-a-linked-list 
-    //         slow_ptr = slow_ptr->next;  // moves one node ahead at a time 
-    //         fast_ptr = fast_ptr->next->next;  // moves two nodes ahead at a time 
-    // }
     
-    // I spoke with Maria (classmate) about optimizing the tortoise and hare: https://www.quora.com/What-is-a-slow-pointer-and-a-fast-pointer-in-a-linked-list 
-    Node* slow_ptr = head, *fast_ptr = head->next;
+    // We spoke with Maria Hernandez about optimizing the tortoise and hare: https://www.quora.com/What-is-a-slow-pointer-and-a-fast-pointer-in-a-linked-list 
+    Node* slow_ptr = head;
+    Node* fast_ptr = head->next;
     while (fast_ptr != NULL) {
         fast_ptr = fast_ptr->next;
-        if (fast_ptr->next != NULL) {
+        if (fast_ptr != NULL) {
             slow_ptr = slow_ptr->next;
             fast_ptr = fast_ptr->next;
         }
@@ -68,11 +63,11 @@ Node *merge(Node *left, Node *right, bool numeric) {
     
     Node *temp;
     Node *head;
-
-    int left_nulls = 0, right_nulls = 0;
-
+    bool condition;
+  
+    condition = (numeric) ? node_number_compare(left, right) : node_string_compare(left, right);
     // sets head first
-    if (node_number_compare(left, right)) {
+    if (condition) {
         head = left;
         left = left->next;
     }
@@ -84,216 +79,35 @@ Node *merge(Node *left, Node *right, bool numeric) {
     
     // loops until left and right segments have been gone through entirely
     temp = head;
-    while(left->next != NULL || right->next != NULL) {
-        
+
+    while(left != NULL ||  right != NULL) {
         // if left segment is spent, insert rights only
-        if (left->next == NULL) {
-            if (left_nulls > 0) {
-                temp->next = right;
-                right = right->next;
-                continue;
-            }
-            left_nulls++;
+        if (left == NULL) {
+            temp->next = right;
+            right = right->next;
+            temp = temp->next;
+            continue;
         }
 
         // if right segment is spent, insert lefts only
-        if (right->next == NULL) {
-            if (right_nulls > 0) {
-                temp->next = left;
-                left = left->next;
-                continue;
-            }
-            right_nulls++;
+        if (right == NULL) {
+            temp->next = left;
+            left = left->next;
+            temp = temp->next;
+            continue;
         }
-
-        if (numeric) {
-            // if left is less than right, left is inserted
-            if (node_number_compare(left, right)) {
+        condition = (numeric) ? node_number_compare(left, right) : node_string_compare(left, right);
+        if (condition) {
                 temp->next = left;
                 left = left->next;
-            }
-
-            // if right is less than left, right is inserted
+        }
             else {
                 temp->next = right;
                 right = right->next;
             }
-        }
-        else {
-            // if left is less than right, left is inserted
-            if (node_string_compare(left, right)) {
-                temp->next = left;
-                left = left->next;
-            }
-
-            // if right is less than left, right is inserted
-            else {
-                temp->next = right;
-                right = right->next;
-            }
-        }
         
-        temp = temp->next;
+        temp = temp->next; 
     }
 
     return head;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Node *msort(Node *head, bool numeric);
-// void  split(Node *head, Node *&left, Node *&right);
-// Node *merge(Node *left, Node *right, bool numeric);
-
-// // Implementations
-
-// void merge_sort(List &l, bool numeric) {
-
-// }
-
-// Node *msort(Node *head, bool numeric) {
-    
-// }
-
-// void split(Node *head, Node *&left, Node *&right) {
-//     // if the segment is the first half
-//     if (left == head) {
-//         // loop through nodes to the right of "right", deleting them
-//         Node* temp = right->next;
-//         while(1){
-//             if (temp->next != NULL) {
-//                 Node* nextN = temp->next;
-//                 delete temp;
-//                 temp = nextN;
-//             }
-//             else {
-//                 delete temp;
-//                 break;
-//             }
-//         }
-
-//         right->next = NULL;
-//     }
-
-//     // if the segment is the second half
-//     else {
-//         // loop through first node until "left", deleting them
-        
-//         while(1){
-//             Node* temp = head;
-//             if (temp->next != left) {
-//                 Node* nextN = temp->next;
-//                 delete temp;
-//                 temp = nextN;
-//             }
-//             else {
-//                 delete temp;
-//                 break;
-//             }
-//         }
-
-//         right->next = NULL;
-//     }
-// }
-
-// Node *merge(Node *left, Node *right, bool numeric) {
-    
-//     // loop through left side until end is reached
-//     Node* temp = left;
-//     while(1) {
-//         if (temp->next != NULL) {
-//             temp = temp->next;
-//         }
-//         else {
-//             break;
-//         }
-//     }
-
-//     // conect end of left side with right side
-//     temp->next = right;
-
-
-//     return left;
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Node *msort(Node *head, bool numeric);
-// void  split(Node *head, Node *&left, Node *&right);
-// Node *merge(Node *left, Node *right, bool numeric);
-
-// // Implementations
-
-// void merge_sort(List &l, bool numeric) {
-
-//     //recursively split up list and remerge based on order
-//     Node *thehead = msort(l.head, numeric);
-//     // when recursion is finished, a sorted list should be completed
-
-// }
-
-// Node *msort(Node *head, bool numeric) {
-    
-//     Node *left_head, *right_head;
-    
-//     // end case: if there are only two to compare
-//     if (head->next->next == NULL) {
-//         node_number_compare(head, head->next);
-//     }
-//     else {
-//         // halves list
-//         Node *slow_ptr = head, *fast_ptr = head; 
-//         while(!slow_ptr && !fast_ptr && fast_ptr->next != NULL) {   // https://www.quora.com/What-is-a-slow-pointer-and-a-fast-pointer-in-a-linked-list 
-//                 slow_ptr = slow_ptr->next;  // moves one node ahead at a time 
-//                 fast_ptr = fast_ptr->next->next;  // moves two nodes ahead at a time 
-//         }
-        
-//         split(head, slow_ptr, fast_ptr);
-
-//         // left side
-//         left_head = msort(head, numeric);
-
-//         // right side
-//         right_head = msort(slow_ptr, numeric);
-//     }
-
-//     return merge(left_head, right_head, numeric);
-
-
-// }
-
-// void split(Node *head, Node *&left, Node *&right) {
-//     left->next = NULL;
-// }
-
-// Node *merge(Node *left, Node *right, bool numeric) {
-    
-//     while
-
-//     return left;
-// }
