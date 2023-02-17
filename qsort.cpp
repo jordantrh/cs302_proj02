@@ -11,15 +11,15 @@
 using namespace std;
 
 int node_number_compare(const void * a, const void * b){
-    int aVal = (*(const struct Node *)a).number;
-    int bVal = (*(const struct Node *)b).number;
+    int aVal = (*(const Node **)a)->number;
+    int bVal = (*(const Node **)b)->number;
     
-    return bVal - aVal;
+    return aVal - bVal;
 }
 
 int node_string_compare(const void * a, const void * b)
 {
-   return strcmp(* (char * const *) a, * (char * const *) b);
+    return (*(const Node **)a)->string > (*(const Node **)b)->string;
 }
 
 void qsort_sort(List &l, bool numeric) {
