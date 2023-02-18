@@ -1,5 +1,12 @@
 // main.cpp
 
+/*
+This program was worked on by Jordan, matthew, and Austin.
+
+Github Link: https://github.com/jordantrh/cs302_proj02
+
+*/
+
 #include "volsort.h"
 
 #include <iostream>
