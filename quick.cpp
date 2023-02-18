@@ -123,4 +123,3 @@ Node *concatenate(Node *left, Node *right) {
     return Head;
 
 }
-
