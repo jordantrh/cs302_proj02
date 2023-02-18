@@ -1,37 +1,56 @@
-// volsort.h
-
-#ifndef VOLSORT_H
-#define VOLSORT_H
-
-#include <string>
-#include <iostream>
+#include "volsort.h"
 
 using namespace std;
 
-struct Node {
-    std::string string;
-    int         number;
-    Node       *next;
-};
+List::List() {
+  head = NULL;
+  size = 0;
+}
 
-struct List {
-    Node       *head;
-    size_t      size;
+List::~List() {
+  Node *x = head;
+  Node *temp;
 
-    List(); 					// define in list.cpp
-    ~List();					// define in list.cpp
+    while(x != NULL){
+        //Node* X = head;
+        temp = x->next;
+        delete x;
+        x = temp;
+    }
+}
 
-  //    void push_front(const std::string &s);	//define below
-  void push_front(const std::string &s);
-};
+// void push_front definition
+void List::push_front(const std::string &s){
+  Node* newNode = new Node();
+  //newNode->string = s;
+  //newNode->number = std::stoi(s);
+  
+  if (head == NULL) {
+    size = 1;
+  }
 
-bool node_number_compare(const Node *a, const Node *b);
-bool node_string_compare(const Node *a, const Node *b);
-void dump_node(Node *n);
+  else {
+    size++;
+    newNode->next = head;
+  }
+  
 
-void stl_sort(List &l, bool numeric);	// define in stl.cpp - sort using std::sort
-void qsort_sort(List &l, bool numeric);	// define in qsort.cpp - sort using qsort from cstdlib
-void merge_sort(List &l, bool numeric);	// define in merge.cpp - your implementation
-void quick_sort(List &l, bool numeric);	// define in quick.cpp - your implementation
+  head = newNode;
 
-#endif
+  head->string = s;
+  head->number = std::stoi(s);
+
+
+}
+// Functions -------------------------------------------------------------------
+
+//implement in this file (volsort.h), used by quick, merge and stl
+bool node_number_compare(const Node *a, const Node *b){
+  return a->number < b->number;
+}
+
+//implement in this file (volsort.h), used by quick, merge and stl
+bool node_string_compare(const Node *a, const Node *b){
+  return a->string < b->string; 
+}
+
