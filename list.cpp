@@ -1,29 +1,37 @@
-#include "volsort.h"
+// volsort.h
 
-//List constructor, sets default values for the head as empty and the size of the list
-//as zero
-List::List() {
-  head = NULL;
-  size = 0;
-}
+#ifndef VOLSORT_H
+#define VOLSORT_H
 
-//List deconstructor, takes the head of the list and then deletes them until the next
-//pointer reches null, then ending by deleting the current node after doing so
-List::~List() {
-    while(head->next != NULL){
-        Node* X = head;
-        head = head->next;
-        delete X;
-    }
-    delete head;
-}
+#include <string>
+#include <iostream>
 
-//Compares nodes by numbers
-bool node_number_compare(const Node *a, const Node *b){
-  return a->number > b->number;
-}
+using namespace std;
 
-//Compares nodes by string
-bool node_string_compare(const Node *a, const Node *b){
-  return a->string > b->string; 
-}
+struct Node {
+    std::string string;
+    int         number;
+    Node       *next;
+};
+
+struct List {
+    Node       *head;
+    size_t      size;
+
+    List(); 					// define in list.cpp
+    ~List();					// define in list.cpp
+
+  //    void push_front(const std::string &s);	//define below
+  void push_front(const std::string &s);
+};
+
+bool node_number_compare(const Node *a, const Node *b);
+bool node_string_compare(const Node *a, const Node *b);
+void dump_node(Node *n);
+
+void stl_sort(List &l, bool numeric);	// define in stl.cpp - sort using std::sort
+void qsort_sort(List &l, bool numeric);	// define in qsort.cpp - sort using qsort from cstdlib
+void merge_sort(List &l, bool numeric);	// define in merge.cpp - your implementation
+void quick_sort(List &l, bool numeric);	// define in quick.cpp - your implementation
+
+#endif
