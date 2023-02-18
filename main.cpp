@@ -1,7 +1,7 @@
 // main.cpp
 
 /*
-This program was worked on by Jordan, matthew, and Austin.
+This program was worked on by Jordan Huff, Matthew Webb, and Austin Tran.
 
 Github Link: https://github.com/jordantrh/cs302_proj02
 
